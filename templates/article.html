@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>{{ article.title }}</h1>
+    <span><small>Authored by {{ article.author }} in {{ article.created_date }}</small></span>
+    <hr>
+    <div>
+        <p>{{ article.body|safe }}</p>
+    </div>
+
+    <h1>Comments</h1>
+
+    {% for c in comments %}
+        <span><small>{{ c.author }}</small></span>
+        <div class="small">
+            <p>{{ c.comment|safe }}</p>
+        </div>
+    {% endfor %}
+
+    <h2>Add Comments</h2>
+    {% from 'includes/_formhelpers.html' import render_field %}
+    <form action="" method="post">
+        <div class="form-group">
+            {{ render_field(form.comment, class_='form-control', id='editor') }}
+        </div>
+
+        <hr>
+        {{ form.hidden_tag() }}
+        <input type="submit" class="btn btn-primary" value="Add">
+    </form>
+{% endblock %}
