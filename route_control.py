@@ -19,8 +19,7 @@ def about():
 
 @app.route('/articles')
 def articles():
-    fetched_articles = Articles.query.all()
-    if fetched_articles:
+    if fetched_articles := Articles.query.all():
         return render_template('articles.html', articles = fetched_articles)
 
     return render_template('articles.html')
@@ -43,9 +42,8 @@ def article(article_id):
         return redirect(url_for('articles'))
     if candidate_article:
         return render_template('article.html', article = candidate_article, comments = displayed_comments, form = form)
-    else:
-        flash("Article not found", 'danger')
-        return redirect(url_for('articles'))
+    flash("Article not found", 'danger')
+    return redirect(url_for('articles'))
 
 
 @app.route('/register', methods = ['POST', 'GET'])
@@ -99,8 +97,7 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    fetched_articles = Articles.query.all()
-    if fetched_articles:
+    if fetched_articles := Articles.query.all():
         return render_template('dashboard.html', articles = fetched_articles)
 
     return render_template('dashboard.html')
