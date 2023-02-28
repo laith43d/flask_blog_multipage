@@ -25,8 +25,7 @@ def admin_role(f):
     return decorated_function
 
 def has_permission(user):
-    has_permission = Group.query.filter_by(user = user).get()
-    return has_permission
+    return Group.query.filter_by(user = user).get()
 
 def belongs_to_group(f):
     @wraps(f)
